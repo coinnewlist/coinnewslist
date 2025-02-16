@@ -3,116 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cryptocurrency Live Price</title>
+    <title>CoinNewList</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
             text-align: center;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        .container {
-            width: 95%;
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            width: 100%;
         }
-        h2 {
-            font-size: 22px;
-            color: #333;
+        .table-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
         table {
-            width: 100%;
+            width: 90%;
+            max-width: 600px;
             border-collapse: collapse;
-            margin-top: 10px;
         }
         th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+            border: 1px solid #ddd;
+            padding: 10px;
         }
         th {
             background-color: #f4f4f4;
-            font-size: 16px;
         }
-        td {
-            font-size: 15px;
+        .green {
+            color: green;
+            transition: color 0.1s ease-in-out;
         }
-        .crypto-logo {
-            width: 25px;
-            vertical-align: middle;
-            margin-right: 8px;
+        .red {
+            color: red;
+            transition: color 0.1s ease-in-out;
         }
-        .green { color: green; }
-        .red { color: red; }
-        .fav-star {
-            color: lightgray;
-            cursor: pointer;
-            font-size: 18px;
-            transition: transform 0.2s ease-in-out;
-        }
-        .fav-star.active {
-            color: gold;
-            transform: scale(1.2);
-        }
-        .fade {
-            transition: opacity 0.4s ease-in-out;
-            opacity: 0;
+        .price-update {
+            transition: opacity 0.1s ease-in-out;
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
-
-    <h2>CoinNewList</h2>
-    <div class="container">
+    <h1>CoinNewList</h1>
+    <div class="nav">
+        <span>All Crypto</span>
+        <span>NewList</span>
+        <span>Trending</span>
+        <span>News</span>
+    </div>
+    <div class="table-container">
         <table>
             <thead>
                 <tr>
-                    <th>★</th>
                     <th>#</th>
                     <th>Market Cap</th>
                     <th>Price</th>
                     <th>24h %</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="crypto-table">
                 <tr>
-                    <td class="fav-star" onclick="toggleFavorite(this, 'bitcoin')">☆</td>
-                    <td>1 <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC" class="crypto-logo"> BTC</td>
-                    <td id="btc-marketcap" class="fade">Loading...</td>
-                    <td id="btc-price" class="fade">Loading...</td>
-                    <td id="btc-change" class="fade">Loading...</td>
+                    <td>1</td>
+                    <td>BTC<br><span id="btc-market" style="color: gray; font-size: 14px;">Loading...</span></td>
+                    <td id="btc-price" class="price-update">Loading...</td>
+                    <td id="btc-change" class="green">Loading...</td>
                 </tr>
                 <tr>
-                    <td class="fav-star" onclick="toggleFavorite(this, 'ethereum')">☆</td>
-                    <td>2 <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH" class="crypto-logo"> ETH</td>
-                    <td id="eth-marketcap" class="fade">Loading...</td>
-                    <td id="eth-price" class="fade">Loading...</td>
-                    <td id="eth-change" class="fade">Loading...</td>
-                </tr>
-                <tr>
-                    <td class="fav-star" onclick="toggleFavorite(this, 'ripple')">☆</td>
-                    <td>3 <img src="https://cryptologos.cc/logos/xrp-xrp-logo.png" alt="XRP" class="crypto-logo"> XRP</td>
-                    <td id="xrp-marketcap" class="fade">Loading...</td>
-                    <td id="xrp-price" class="fade">Loading...</td>
-                    <td id="xrp-change" class="fade">Loading...</td>
-                </tr>
-                <tr>
-                    <td class="fav-star" onclick="toggleFavorite(this, 'tether')">☆</td>
-                    <td>4 <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT" class="crypto-logo"> USDT</td>
-                    <td id="usdt-marketcap" class="fade">Loading...</td>
-                    <td id="usdt-price" class="fade">Loading...</td>
-                    <td id="usdt-change" class="fade">Loading...</td>
-                </tr>
-                <tr>
-                    <td class="fav-star" onclick="toggleFavorite(this, 'binancecoin')">☆</td>
-                    <td>5 <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png" alt="BNB" class="crypto-logo"> BNB</td>
-                    <td id="bnb-marketcap" class="fade">Loading...</td>
-                    <td id="bnb-price" class="fade">Loading...</td>
-                    <td id="bnb-change" class="fade">Loading...</td>
+                    <td>2</td>
+                    <td>ETH<br><span id="eth-market" style="color: gray; font-size: 14px;">Loading...</span></td>
+                    <td id="eth-price" class="price-update">Loading...</td>
+                    <td id="eth-change" class="green">Loading...</td>
                 </tr>
             </tbody>
         </table>
@@ -121,66 +94,35 @@
     <script>
         async function fetchCryptoData() {
             try {
-                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,ripple,tether,binancecoin&vs_currencies=usd&include_market_cap=true&include_24hr_change=true");
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_market_cap=true&include_24hr_change=true');
                 const data = await response.json();
 
-                updatePrice("btc-price", data.bitcoin.usd);
-                updateMarketCap("btc-marketcap", data.bitcoin.usd_market_cap);
-                updateChange("btc-change", data.bitcoin.usd_24h_change);
-
-                updatePrice("eth-price", data.ethereum.usd);
-                updateMarketCap("eth-marketcap", data.ethereum.usd_market_cap);
-                updateChange("eth-change", data.ethereum.usd_24h_change);
-
-                updatePrice("xrp-price", data.ripple.usd);
-                updateMarketCap("xrp-marketcap", data.ripple.usd_market_cap);
-                updateChange("xrp-change", data.ripple.usd_24h_change);
-
-                updatePrice("usdt-price", data.tether.usd);
-                updateMarketCap("usdt-marketcap", data.tether.usd_market_cap);
-                updateChange("usdt-change", data.tether.usd_24h_change);
-
-                updatePrice("bnb-price", data.binancecoin.usd);
-                updateMarketCap("bnb-marketcap", data.binancecoin.usd_market_cap);
-                updateChange("bnb-change", data.binancecoin.usd_24h_change);
+                updateCryptoData("btc", data.bitcoin.usd, data.bitcoin.usd_market_cap, data.bitcoin.usd_24h_change);
+                updateCryptoData("eth", data.ethereum.usd, data.ethereum.usd_market_cap, data.ethereum.usd_24h_change);
             } catch (error) {
-                console.error("Error fetching data:", error);
+                console.error("Error fetching crypto data:", error);
             }
+            setTimeout(fetchCryptoData, 1000); // Update every 1 second for ultra-fast updates
         }
 
-        function updatePrice(elementId, price) {
-            const element = document.getElementById(elementId);
-            element.style.opacity = 0;
+        function updateCryptoData(symbol, price, marketCap, change) {
+            const marketElement = document.getElementById(`${symbol}-market`);
+            const priceElement = document.getElementById(`${symbol}-price`);
+            const changeElement = document.getElementById(`${symbol}-change`);
+            
+            marketElement.innerText = marketCap >= 1e12 ? (marketCap / 1e12).toFixed(2) + "T" : (marketCap / 1e9).toFixed(2) + "B";
+            
+            priceElement.style.opacity = "0.5";
             setTimeout(() => {
-                element.textContent = "$" + price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 5 });
-                element.style.opacity = 1;
-            }, 200);
-        }
-
-        function updateMarketCap(elementId, marketCap) {
-            const element = document.getElementById(elementId);
-            element.style.opacity = 0;
-            setTimeout(() => {
-                element.textContent = marketCap >= 1e12
-                    ? (marketCap / 1e12).toFixed(2) + "T"
-                    : (marketCap / 1e9).toFixed(2) + "B";
-                element.style.opacity = 1;
-            }, 200);
-        }
-
-        function updateChange(elementId, change) {
-            const element = document.getElementById(elementId);
-            element.style.opacity = 0;
-            setTimeout(() => {
-                element.textContent = change.toFixed(2) + "%";
-                element.className = change >= 0 ? "green" : "red";
-                element.style.opacity = 1;
-            }, 200);
+                priceElement.innerText = "$" + price.toLocaleString();
+                priceElement.style.opacity = "1";
+            }, 100);
+            
+            changeElement.innerText = (change >= 0 ? "▲ " : "▼ ") + change.toFixed(2) + "%";
+            changeElement.className = change >= 0 ? "green" : "red";
         }
 
         fetchCryptoData();
-        setInterval(fetchCryptoData, 5000);
     </script>
-
 </body>
 </html>
